@@ -1,10 +1,10 @@
 <?php
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\User;
-//use Validator;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\JsonResponse;// json response
 
@@ -40,9 +40,10 @@ class AuthController extends Controller
     public function register(Request $request): JsonResponse
     {
 	$this->validate($request, [
-	    'name' => ['required', 'string', 'max:255'],
-	    'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-	    'password' => ['required', 'string', 'min:8'],
+	    // 'name' => ['required', 'string', 'max:255'],
+	    // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        // 'password' => ['required', 'string', 'min:8'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:users']
 	]);
 
         $user = User::create([
@@ -75,10 +76,11 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
+        //Auth::login($user);
         $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-            'remember_me' => 'boolean'
+            // 'email' => 'required|string|email',
+            // 'password' => 'required|string',
+            // 'remember_me' => 'boolean'
         ]);
         $credentials = request(['email', 'password']);
         if(!Auth::attempt($credentials))
@@ -110,6 +112,7 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
+        //Auth::logout();
         $request->user()->token()->revoke();
         return response()->json([
             'message' => 'success'

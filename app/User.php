@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens; //passport
+use App\Exam;
 
 class User extends Authenticatable
 {
@@ -38,4 +39,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //和exams的關聯
+    public function exams()
+    {
+        return $this->hasMany(Exam::class);
+    }
 }

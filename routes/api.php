@@ -23,9 +23,7 @@ Route::group([
     'prefix' => 'auth'
     ], function () {
     Route::post('login', 'AuthController@login');
-    Route::post('signup', 'AuthController@signup');
-	Route::post('register', 'AuthController@register')
-    	->name('api.register');
+	Route::post('register', 'AuthController@register');
 
     Route::group([
       'middleware' => 'auth:api'
@@ -35,3 +33,34 @@ Route::group([
     });
 });
 
+//Route::resource('Exam','ExamController');
+//Route::resource('Task','TaskController');
+
+// Route::group([
+//     'prefix' => 'exam'
+//     ], function () {
+//     Route::get('/', 'ExamController@index')->name('api.exam.get_all');
+//     Route::post('/', 'ExamController@store')->name('api.exam.post');
+//     Route::delete('/{exam}', 'ExamController@destroy')->name('api.exam.delete');
+
+//     Route::group([
+//       'middleware' => 'auth:api'
+//     ], function() {
+
+//     });
+// });
+
+// Route::get('/exams', 'ExamController@index')->name('api.exam.get_all');
+// Route::post('/exam', 'ExamController@store')->name('api.exam.post');
+// Route::delete('/exam/{exam}', 'ExamController@destroy')->name('api.exam.delete');
+// Route::get('/exam', 'ExamController@show')->name('api.exam.show');
+
+Route::group([
+    'prefix' => 'v1'
+    ], function () {
+    Route::group([
+      'middleware' => 'auth:api'
+    ], function() {
+        Route::apiResource('/exam', 'API\ExamController');
+    });
+});
