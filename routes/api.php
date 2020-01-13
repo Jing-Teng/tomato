@@ -55,6 +55,7 @@ Route::group([
 // Route::delete('/exam/{exam}', 'ExamController@destroy')->name('api.exam.delete');
 // Route::get('/exam', 'ExamController@show')->name('api.exam.show');
 
+//考試, 番茄, 起床鬧鐘
 Route::group([
     'prefix' => 'v1'
     ], function () {
@@ -62,5 +63,20 @@ Route::group([
       'middleware' => 'auth:api'
     ], function() {
         Route::apiResource('/exam', 'API\ExamController');
+        Route::apiResource('/exam/{exam}/tomato', 'API\TomatoController');
+        //Route::apiResource('/exam/{exam}/wakeup_alarm', 'API\WakeupAlarmController');
+    });
+});
+
+
+//提醒鬧鐘, 待辦事項
+Route::group([
+    'prefix' => 'v1'
+    ], function () {
+    Route::group([
+      'middleware' => 'auth:api'
+    ], function() {
+        Route::apiResource('/task', 'API\TaskController');
+        //Route::apiResource('/notify', 'API\NotifyController');
     });
 });

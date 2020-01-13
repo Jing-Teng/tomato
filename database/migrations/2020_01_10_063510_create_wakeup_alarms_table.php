@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExamsTable extends Migration
+class CreateWakeupAlarmsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,17 @@ class CreateExamsTable extends Migration
      */
     public function up()
     {
-        Schema::create('exams', function (Blueprint $table) {
+        Schema::create('wakeup_alarms', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
             $table->string('name');
-            $table->date('end_date');
-            $table->integer('user_id')->index();
+            $table->date('alarm_time');
+            $table->boolean('open');
+            $table->integer('cycle');
+            $table->boolean('once');
+            $table->date('wakeup_time')->nullable();
+            $table->integer('lazy_times')->nullable();
+            $table->integer('exam_id')->index();
         });
     }
 
@@ -29,6 +34,6 @@ class CreateExamsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exams');
+        Schema::dropIfExists('wakeup_alarms');
     }
 }

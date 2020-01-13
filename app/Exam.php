@@ -4,21 +4,28 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\User;
-use App\Task;
+use App\Tomato;
+use App\wakeupAlarm;
 
 class Exam extends Model
 {
-    protected $fillable = ['name','description','start_date','end_date'];
+    protected $fillable = ['name', 'end_date'];
 
-    //跟user和tasks的關聯
+    //和user的關聯
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function tasks()
+    //和鬧鐘、番茄的關係
+    public function wakeupAlarms()
     {
-        return $this->hasMany(Task::class);
+        return $this->belongsTo(WakeupAlarm::class);
+    }
+
+    public function tomatoes()
+    {
+        return $this->belongsTo(Tomato::class);
     }
 
 }

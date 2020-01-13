@@ -5,15 +5,15 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 
-class Task extends Model
+class NotifyAlarm extends Model
 {
+    protected $fillable = [
+        'name', 'alarm_time', 'open', 'cycle' , 'once'
+    ];
     
-    protected $fillable = ['name'];
-
     //和user的關聯
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
 }

@@ -2,37 +2,30 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Requests\ExamRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Exam;
+use App\Tomato;
 
-
-class ExamController extends Controller
+class TomatoController extends Controller
 {
-    // 改到 Route
-    // public function __construct()
-    // {
-    //     $this->middleware('auth:api');
-    // }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $examId)
     {
-        $user_id = Auth::user()->id; // 取得目前的已認證使用者
-        //$user_id = auth()->user()->id;        
+        $user_id = Auth::user()->id; // 取得目前的已認證使用者     
         $user = User::find($user_id); //以 user_id 搜尋 user
-        $exams = Exam::where('user_id', $request->user()->id)->get();
+        $exam = Exam::where('user_id', $request->user()->id)->get();
+        $tomatoes = Tomato::where('exam_id', $examId)->get();
+        
         return response()->json([
-            'message' => 'sucess',
-            //'user' => $user,
-            'exams' => $exams
+            'message' => 'sucess',          
+            'tomatoes' => $tomatoes
         ]);
     }
 
@@ -42,19 +35,14 @@ class ExamController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ExamRequest $request)
+    public function store(Request $request, $examId)
     {
-        // 改用 ExamRequest
-        // $this->validate($request, [ 
-        //     'name' => 'required|max:255',
-        // ]);
-
-        $exam = new Exam($request->all());
-        $exam->user_id = Auth::user()->id;
-        $exam->save();
+        $tomato = new Tomato($request->all());
+        $tomato->exam_id = $examId;
+        $tomato->save();
         return response()->json([
             'message' => 'sucess',
-            'exam' => $exam
+            'tomato' => $tomato
         ]);
     }
 
@@ -64,16 +52,13 @@ class ExamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($examId, $tomatoId)
     {
-        //$user_id = Auth::user()->id; //取得關聯
-        //$exam_id = $request->id; //取不到ㄟ
-        
-        $exam = Exam::where('id', $id)->get();
+        //$exam = Exam::where('id', $examId)->first();
+        $tomato = Tomato::where('id', $tomatoId)->first();
         return response()->json([
             'message' => 'sucess',
-            //'name' => $name,
-            'exam' => $exam
+            'tomato' => $tomato
         ]);
     }
 
@@ -84,29 +69,31 @@ class ExamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $examId, $tomatoId)
     {
-        $exam = Exam::where('id', $id)->first();
-        $exam->update($request->all());
+        //$exam = Exam::where('id', $examId)->first();
+        $tomato = Tomato::where('id', $tomatoId)->first();
+        $tomato->update($request->all());
         return response()->json([
             'message' => 'sucess',
-            'exam' => $exam
+            'tomato' => $tomato
         ]);
     }
 
+    
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($examId, $tomatoId)
     {
-        $exam = Exam::where('id', $id)->first();
-        $exam->delete();
+        $tomato = Tomato::where('id', $tomatoId)->first(); 
+        $tomato->delete();
         return response()->json([
             'message' => 'sucess',
-            'exam' => $exam
+            'tomato' => $tomato
         ]);
     }
 }
