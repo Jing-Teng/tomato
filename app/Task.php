@@ -8,7 +8,7 @@ use App\User;
 class Task extends Model
 {
     
-    protected $fillable = ['name'];
+    protected $fillable = ['name','result'];
 
     //和user的關聯
     public function user()

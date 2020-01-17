@@ -37,8 +37,10 @@ class TomatoController extends Controller
      */
     public function store(Request $request, $examId)
     {
+
         $tomato = new Tomato($request->all());
         $tomato->exam_id = $examId;
+        $tomato->user_id = Auth::id();
         $tomato->save();
         return response()->json([
             'message' => 'sucess',
@@ -56,10 +58,19 @@ class TomatoController extends Controller
     {
         //$exam = Exam::where('id', $examId)->first();
         $tomato = Tomato::where('id', $tomatoId)->first();
-        return response()->json([
-            'message' => 'sucess',
-            'tomato' => $tomato
-        ]);
+        if(Auth::id() == $tomato->user_id){
+            
+            return response()->json([
+                'message' => 'sucess',
+                'tomato' => $tomato
+            ]);
+        }
+        else{
+            return response()->json([
+                'message' => 'permission denied'
+            ],403);
+        }
+
     }
 
     /**
@@ -73,11 +84,19 @@ class TomatoController extends Controller
     {
         //$exam = Exam::where('id', $examId)->first();
         $tomato = Tomato::where('id', $tomatoId)->first();
-        $tomato->update($request->all());
-        return response()->json([
-            'message' => 'sucess',
-            'tomato' => $tomato
-        ]);
+        if(Auth::id() == $tomato->user_id){
+           
+            $tomato->update($request->all());
+            return response()->json([
+                'message' => 'sucess',
+                'tomato' => $tomato
+            ]);
+        }
+        else{
+            return response()->json([
+                'message' => 'permission denied'
+            ],403);
+        }
     }
 
     
@@ -89,11 +108,20 @@ class TomatoController extends Controller
      */
     public function destroy($examId, $tomatoId)
     {
-        $tomato = Tomato::where('id', $tomatoId)->first(); 
-        $tomato->delete();
-        return response()->json([
-            'message' => 'sucess',
-            'tomato' => $tomato
-        ]);
+        $tomato = Tomato::where('id', $tomatoId)->first();
+        if(Auth::id() == $tomato->user_id){
+           
+            $tomato->delete();
+            return response()->json([
+                'message' => 'sucess',
+                'tomato' => $tomato
+            ]);
+        }
+        else{
+            return response()->json([
+                'message' => 'permission denied'
+            ],403);
+        }
+
     }
 }

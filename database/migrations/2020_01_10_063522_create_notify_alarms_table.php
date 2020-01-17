@@ -14,14 +14,15 @@ class CreateNotifyAlarmsTable extends Migration
     public function up()
     {
         Schema::create('notify_alarms', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->unsignedInteger('exam_id')->index();
             $table->timestamps();
+
+            //$table->boolean('open');
+            //$table->string('cycle');
             $table->string('name');
-            $table->date('alarm_time');
-            $table->boolean('open');
-            $table->integer('cycle');
-            $table->boolean('once');
-            $table->integer('exam_id')->index();
+            $table->time('alarm_time');
+            $table->date('create_date');
         });
     }
 

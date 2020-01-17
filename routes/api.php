@@ -64,7 +64,7 @@ Route::group([
     ], function() {
         Route::apiResource('/exam', 'API\ExamController');
         Route::apiResource('/exam/{exam}/tomato', 'API\TomatoController');
-        //Route::apiResource('/exam/{exam}/wakeup_alarm', 'API\WakeupAlarmController');
+        Route::apiResource('/exam/{exam}/wakeup_alarm', 'API\WakeupAlarmController');
     });
 });
 

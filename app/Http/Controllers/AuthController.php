@@ -39,27 +39,29 @@ class AuthController extends Controller
 
     public function register(Request $request): JsonResponse
     {
-	$this->validate($request, [
-	    // 'name' => ['required', 'string', 'max:255'],
-	    // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-        // 'password' => ['required', 'string', 'min:8'],
-        'email' => ['required', 'string', 'email', 'max:255', 'unique:users']
-	]);
+
+        $this->validate($request, [
+            // 'name' => ['required', 'string', 'max:255'],
+            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            // 'password' => ['required', 'string', 'min:8'],
+            'email' => ['unique:users']
+        ]);
+
 
         $user = User::create([
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             //'password' => Hash::make($request->get('password')),
-	        'password' => bcrypt($request->password)
-	]);
+            'password' => bcrypt($request->password)
+        ]);
 
-	//$response = response()->json($validator);
-	//$response = response()->json($validated);
-	$response = response()->json(
-	[
-        'message' => 'success',
-	]);
-	return $response;
+        //$response = response()->json($validator);
+        //$response = response()->json($validated);
+        $response = response()->json(
+        [
+            'message' => 'success',
+        ]);
+        return $response;
     }
 
 

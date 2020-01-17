@@ -14,11 +14,12 @@ class CreateExamsTable extends Migration
     public function up()
     {
         Schema::create('exams', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->unsignedInteger('user_id')->index();
             $table->timestamps();
+
             $table->string('name');
-            $table->date('end_date');
-            $table->integer('user_id')->index();
+            $table->date('end_date');   
         });
     }
 

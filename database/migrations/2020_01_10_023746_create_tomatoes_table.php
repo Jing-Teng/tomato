@@ -14,13 +14,17 @@ class CreateTomatoesTable extends Migration
     public function up()
     {
         Schema::create('tomatoes', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('exam_id')->index();
             $table->timestamps();
-            $table->string('name');
-            $table->date('end_date');
+            
+            //$table->string('cycle');
             $table->integer('length')->nullable();
             $table->integer('result')->nullable();
-            $table->integer('exam_id')->index();
+            $table->string('name');
+            $table->date('create_date');
+            
         });
     }
 

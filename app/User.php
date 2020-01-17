@@ -10,7 +10,7 @@ use App\Exam;
 use App\Task;
 use App\NotifyAlarm;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 	use Notifiable, HasApiTokens; //passport

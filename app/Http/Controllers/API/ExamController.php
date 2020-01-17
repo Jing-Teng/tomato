@@ -67,14 +67,21 @@ class ExamController extends Controller
     public function show($id)
     {
         //$user_id = Auth::user()->id; //取得關聯
-        //$exam_id = $request->id; //取不到ㄟ
         
-        $exam = Exam::where('id', $id)->get();
-        return response()->json([
-            'message' => 'sucess',
-            //'name' => $name,
-            'exam' => $exam
-        ]);
+        //$exam = Exam::where('id', $id)->get(); 回傳 collection 會掛掉
+        $exam = Exam::where('id', $id)->first();
+        if(Auth::id() == $exam->user_id){
+            return response()->json([
+                'message' => 'sucess',
+                'exam' => $exam
+            ]);
+        }
+        else{
+            return response()->json([
+                'message' => 'permission denied'
+            ],403);
+        }
+
     }
 
     /**
@@ -87,11 +94,18 @@ class ExamController extends Controller
     public function update(Request $request, $id)
     {
         $exam = Exam::where('id', $id)->first();
-        $exam->update($request->all());
-        return response()->json([
-            'message' => 'sucess',
-            'exam' => $exam
-        ]);
+        if(Auth::id() == $exam->user_id){
+            $exam->update($request->all());           
+            return response()->json([
+                'message' => 'sucess',
+                'exam' => $exam
+            ]);
+        }
+        else{
+            return response()->json([
+                'message' => 'permission denied'
+            ],403);
+        }
     }
 
     /**
@@ -102,11 +116,21 @@ class ExamController extends Controller
      */
     public function destroy($id)
     {
+        //刪掉 exam 底下的關聯應該也要被刪掉
         $exam = Exam::where('id', $id)->first();
-        $exam->delete();
-        return response()->json([
-            'message' => 'sucess',
-            'exam' => $exam
-        ]);
+        if(Auth::id() == $exam->user_id){
+            
+            $exam->delete();
+            return response()->json([
+                'message' => 'sucess',
+                'exam' => $exam
+            ]);
+        }
+        else{
+            return response()->json([
+                'message' => 'permission denied'
+            ],403);
+        }
+
     }
 }
