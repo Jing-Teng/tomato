@@ -16,15 +16,14 @@ class CreateWakeupAlarmsTable extends Migration
         Schema::create('wakeup_alarms', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('exam_id')->index();
-            $table->timestamps();
-
             //$table->string('cycle');
             //$table->boolean('open');
             $table->string('name');
             $table->time('alarm_time');            
-            $table->date('create_date');
+            //$table->date('create_date')->default(date("Y-m-d"));
             $table->time('wakeup_time')->nullable();
             $table->integer('lazy_times')->nullable();
+            $table->timestamps();
             
         });
     }

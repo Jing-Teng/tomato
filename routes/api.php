@@ -80,3 +80,8 @@ Route::group([
         //Route::apiResource('/notify', 'API\NotifyController');
     });
 });
+
+//Route::get('/warning/{email}', 'WarningController@send');
+
+Route::post('warning', 'WarningController@send');
+Route::post('warning2', 'WarningController@send2');

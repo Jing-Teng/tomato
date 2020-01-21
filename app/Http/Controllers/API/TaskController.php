@@ -21,7 +21,7 @@ class TaskController extends Controller
         $user = User::find($user_id); //以 user_id 搜尋 user
         $tasks = Task::where('user_id', $request->user()->id)->get();
         return response()->json([
-            'message' => 'sucess',
+            'message' => 'success',
             'tasks' => $tasks
         ]);
     }
@@ -38,7 +38,7 @@ class TaskController extends Controller
         $task->user_id = Auth::user()->id;
         $task->save();
         return response()->json([
-            'message' => 'sucess',
+            'message' => 'success',
             //'id' => $task->user_id,
             'task' => $task
         ]);
@@ -54,7 +54,7 @@ class TaskController extends Controller
     {
         $task = Task::where('id', $id)->get();
         return response()->json([
-            'message' => 'sucess',
+            'message' => 'success',
             //'name' => $name,
             'task' => $task
         ]);
@@ -67,12 +67,12 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id,Request $request)
     {
         $task = Task::where('id', $id)->first();
         $task->update($request->all());
         return response()->json([
-            'message' => 'sucess',
+            'message' => 'success',
             'task' => $task
         ]);
     }
@@ -88,7 +88,7 @@ class TaskController extends Controller
         $task = Task::where('id', $id)->first(); //get 改成 first
         $task->delete();
         return response()->json([
-            'message' => 'sucess',
+            'message' => 'success',
             'task' => $task
         ]);
     }

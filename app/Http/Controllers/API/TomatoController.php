@@ -24,7 +24,7 @@ class TomatoController extends Controller
         $tomatoes = Tomato::where('exam_id', $examId)->get();
         
         return response()->json([
-            'message' => 'sucess',          
+            'message' => 'success',          
             'tomatoes' => $tomatoes
         ]);
     }
@@ -43,7 +43,7 @@ class TomatoController extends Controller
         $tomato->user_id = Auth::id();
         $tomato->save();
         return response()->json([
-            'message' => 'sucess',
+            'message' => 'success',
             'tomato' => $tomato
         ]);
     }
@@ -61,7 +61,7 @@ class TomatoController extends Controller
         if(Auth::id() == $tomato->user_id){
             
             return response()->json([
-                'message' => 'sucess',
+                'message' => 'success',
                 'tomato' => $tomato
             ]);
         }
@@ -88,7 +88,7 @@ class TomatoController extends Controller
            
             $tomato->update($request->all());
             return response()->json([
-                'message' => 'sucess',
+                'message' => 'success',
                 'tomato' => $tomato
             ]);
         }
@@ -113,7 +113,7 @@ class TomatoController extends Controller
            
             $tomato->delete();
             return response()->json([
-                'message' => 'sucess',
+                'message' => 'success',
                 'tomato' => $tomato
             ]);
         }

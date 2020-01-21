@@ -30,7 +30,7 @@ class ExamController extends Controller
         $user = User::find($user_id); //以 user_id 搜尋 user
         $exams = Exam::where('user_id', $request->user()->id)->get();
         return response()->json([
-            'message' => 'sucess',
+            'message' => 'success',
             //'user' => $user,
             'exams' => $exams
         ]);
@@ -53,7 +53,7 @@ class ExamController extends Controller
         $exam->user_id = Auth::user()->id;
         $exam->save();
         return response()->json([
-            'message' => 'sucess',
+            'message' => 'success',
             'exam' => $exam
         ]);
     }
@@ -72,7 +72,7 @@ class ExamController extends Controller
         $exam = Exam::where('id', $id)->first();
         if(Auth::id() == $exam->user_id){
             return response()->json([
-                'message' => 'sucess',
+                'message' => 'success',
                 'exam' => $exam
             ]);
         }
@@ -97,7 +97,7 @@ class ExamController extends Controller
         if(Auth::id() == $exam->user_id){
             $exam->update($request->all());           
             return response()->json([
-                'message' => 'sucess',
+                'message' => 'success',
                 'exam' => $exam
             ]);
         }
@@ -122,7 +122,7 @@ class ExamController extends Controller
             
             $exam->delete();
             return response()->json([
-                'message' => 'sucess',
+                'message' => 'success',
                 'exam' => $exam
             ]);
         }

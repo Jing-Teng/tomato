@@ -25,7 +25,7 @@ class TaskController extends Controller
         //     'tasks' => $tasks,
         // ]);
         return response()->json([
-            'message' => 'sucess',
+            'message' => 'success',
             'tasks' => $tasks  
         ]);
     }
@@ -58,7 +58,7 @@ class TaskController extends Controller
     
         //return redirect('/tasks');
         return response()->json([
-            'message' => 'sucess'
+            'message' => 'success'
         ]);
     }
 
@@ -91,7 +91,7 @@ class TaskController extends Controller
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Task $task)
+    public function update(Task $task,Request $request)
     {
         //
     }
@@ -106,7 +106,7 @@ class TaskController extends Controller
     {
         $task->delete();
         return response()->json([
-            'message' => 'sucess'
+            'message' => 'success'
         ]);
     }
 }

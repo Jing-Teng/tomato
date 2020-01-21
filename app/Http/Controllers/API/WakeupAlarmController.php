@@ -24,7 +24,7 @@ class WakeupAlarmController extends Controller
         $wakeup_alarms = WakeupAlarm::where('exam_id', $examId)->get();
         
         return response()->json([
-            'message' => 'sucess',          
+            'message' => 'success',          
             'wakeup_alarms' => $wakeup_alarms
         ]);
     }
@@ -41,7 +41,7 @@ class WakeupAlarmController extends Controller
         $wakeup_alarm->exam_id = $examId;
         $wakeup_alarm->save();
         return response()->json([
-            'message' => 'sucess',
+            'message' => 'success',
             'wakeup_alarm' => $wakeup_alarm
         ]);
     }
@@ -57,7 +57,7 @@ class WakeupAlarmController extends Controller
         //$exam = Exam::where('id', $examId)->first();
         $wakeup_alarm = WakeupAlarm::where('id', $wakeupAlarmId)->first();
         return response()->json([
-            'message' => 'sucess',
+            'message' => 'success',
             'wakeup_alarm' => $wakeup_alarm
         ]);
     }
@@ -75,7 +75,7 @@ class WakeupAlarmController extends Controller
         $wakeup_alarm = WakeupAlarm::where('id', $wakeupAlarmId)->first();
         $wakeup_alarm->update($request->all());
         return response()->json([
-            'message' => 'sucess',
+            'message' => 'success',
             'wakeup_alarm' => $wakeup_alarm
         ]);
     }
@@ -91,7 +91,7 @@ class WakeupAlarmController extends Controller
         $wakeup_alarm = WakeupAlarm::where('id', $wakeupAlarmId)->first(); 
         $wakeup_alarm->delete();
         return response()->json([
-            'message' => 'sucess',
+            'message' => 'success',
             'wakeup_alarm' => $wakeup_alarm
         ]);
     }
