@@ -18,6 +18,7 @@ class CreateTasksTable extends Migration
             $table->unsignedInteger('user_id')->index();
             //$table->date('create_date')->default(date("Y-m-d"));
             $table->string('name');
+            $table->integer('position');
             $table->boolean('result')->nullable();
             $table->timestamps();
         });

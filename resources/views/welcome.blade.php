@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Tomato</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -81,17 +81,16 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    NFC Tomato Clock 
+                    狂掃番茄
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/doc">About</a>
-                    <a href="https://laracasts.co">Android</a>
-                    <a href="https://laravel-news.co">iOS</a>
-                    <a href="https://blog.laravel.co">Blog</a>
-                    <a href="https://nova.laravel.co">To do</a>
-                    <a href="https://forge.laravel.co">Alarm</a>
-                    <a href="https://github.com/laravel/larave">Tomato</a>
+                    <a href="about">About</a>
+                    <a href="android">Android</a>
+                    <a href="ios">iOS</a>
+                    <a href="charts">Charts</a>
+                    <a href="todolists">Todolists</a>
+                    <a href="tomatoes">Tomatoes</a>
                 </div>
             </div>
         </div>

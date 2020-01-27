@@ -21,6 +21,9 @@ class CreateTomatoesTable extends Migration
             $table->integer('length');
             $table->integer('result');
             $table->string('name');
+            $table->string('color');
+            $table->string('icon');
+            $table->integer('position');
             //$table->date('create_date')->default(date("Y-m-d"));
             $table->timestamps();     
         });

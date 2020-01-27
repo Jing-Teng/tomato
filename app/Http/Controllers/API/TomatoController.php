@@ -19,10 +19,10 @@ class TomatoController extends Controller
     public function index(Request $request, $examId)
     {
         $user_id = Auth::user()->id; // 取得目前的已認證使用者     
-        $user = User::find($user_id); //以 user_id 搜尋 user
-        $exam = Exam::where('user_id', $request->user()->id)->get();
-        $tomatoes = Tomato::where('exam_id', $examId)->get();
-        
+        //$user = User::find($user_id); //以 user_id 搜尋 user
+        //$exam = Exam::where('user_id', $request->user()->id)->get();
+        $tomatoes = Tomato::where(['exam_id' => $examId, 'user_id' => $user_id] )->get();
+ 
         return response()->json([
             'message' => 'success',          
             'tomatoes' => $tomatoes
@@ -122,6 +122,40 @@ class TomatoController extends Controller
                 'message' => 'permission denied'
             ],403);
         }
+    }
 
+    public function findTomatosByDate($examId,Request $request)
+    {
+        $created_at = $request->created_at;
+        $startTime = $created_at . " 00:00:00";
+        $endTime = $created_at . " 23:59:59";
+        $user_id = Auth::user()->id; // 取得目前的已認證使用者     
+        $user = User::find($user_id); //以 user_id 搜尋 user
+        $exam = Exam::where('user_id', $request->user()->id)->get();
+        $tomatoes = Tomato::where('exam_id' , $examId)
+                    ->whereBetween('created_at', array($startTime , $endTime))
+                    ->get();
+        
+        return response()->json([
+            'message' => 'success',
+            'tomatoes' => $tomatoes
+        ]);
+    }
+
+    public function findTomatosBetweenDates($examId,Request $request)
+    {
+        $start_date = $request->start_date . " 00:00:00";
+        $end_date = $request->$end_date . " 23:59:59";
+        $user_id = Auth::user()->id; // 取得目前的已認證使用者     
+        $user = User::find($user_id); //以 user_id 搜尋 user
+        $exam = Exam::where('user_id', $request->user()->id)->get();
+        $tomatoes = Tomato::where('exam_id' , $examId)
+                    ->whereBetween('created_at', array($start_date , $end_date))
+                    ->get();
+        
+        return response()->json([
+            'message' => 'success',
+            'tomatoes' => $tomatoes
+        ]);
     }
 }

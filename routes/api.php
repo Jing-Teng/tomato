@@ -30,6 +30,7 @@ Route::group([
     ], function() {
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
+        Route::get('builder', 'AuthController@builder');
     });
 });
 
@@ -64,7 +65,9 @@ Route::group([
     ], function() {
         Route::apiResource('/exam', 'API\ExamController');
         Route::apiResource('/exam/{exam}/tomato', 'API\TomatoController');
-        Route::apiResource('/exam/{exam}/wakeup_alarm', 'API\WakeupAlarmController');
+        //Route::get('/exam/{exam}/tomato', 'API\TomatoController@findTomatosByDate');
+        //Route::get('/exam/{exam}/tomato', 'API\TomatoController@findTomatosBetweenDates');
+        //Route::apiResource('/exam/{exam}/wakeup_alarm', 'API\WakeupAlarmController');
     });
 });
 
@@ -85,3 +88,4 @@ Route::group([
 
 Route::post('warning', 'WarningController@send');
 Route::post('warning2', 'WarningController@send2');
+

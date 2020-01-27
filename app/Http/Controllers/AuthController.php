@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\User;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\JsonResponse;// json response
+use DB;
 
 class AuthController extends Controller
 {
@@ -130,4 +131,64 @@ class AuthController extends Controller
     {
         return response()->json($request->user());
     }
+
+    public function builder(Request $request)
+    {
+
+        $user_id = Auth::user()->id; // 取得目前的已認證使用者
+
+        $id = DB::table('tomatoes')->insertGetId(
+            [ 
+                "name" => "新增的蕃茄鍾會顯示在這", 
+                "result" => "0", 
+                "position" => "0",
+
+                "length" => "0",
+                "icon" => "default",
+                "color" => "default",
+                "exam_id" => "1",
+                "user_id" => $user_id,
+                "updated_at" => "2000-01-01 00:00:00",
+                "created_at" => "2000-01-01 00:00:00"
+            ]    
+        );
+
+        $id = DB::table('tomatoes')->insertGetId(
+            [ 
+                "name" => "點擊後開始", 
+                "result" => "0", 
+                "position" => "1",
+
+                "length" => "0",
+                "icon" => "default",
+                "color" => "default",
+                "exam_id" => "1",
+                "user_id" => $user_id,
+                "updated_at" => "2000-01-01 00:00:00",
+                "created_at" => "2000-01-01 00:00:00"
+            ]    
+        );
+
+        $id = DB::table('tomatoes')->insertGetId(
+            [ 
+                "name" => "按右邊的鉛筆可以重新編輯", 
+                "result" => "0", 
+                "position" => "2",
+
+                "length" => "0",
+                "icon" => "default",
+                "color" => "default",
+                "exam_id" => "1",
+                "user_id" => $user_id,
+                "updated_at" => "2000-01-01 00:00:00",
+                "created_at" => "2000-01-01 00:00:00"
+            ]    
+        );
+
+        return response()->json([
+            'message' => 'success'
+        ]);
+
+    }
+
 }
