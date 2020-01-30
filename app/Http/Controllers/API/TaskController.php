@@ -20,9 +20,20 @@ class TaskController extends Controller
         $user_id = Auth::user()->id; // 取得目前的已認證使用者     
         $user = User::find($user_id); //以 user_id 搜尋 user
         $tasks = Task::where('user_id', $request->user()->id)->get();
+        
+        $finished = Task::where(['user_id' => $user_id] )
+                            ->where('result', '>', 0)
+                            ->orderBy('position', 'asc')
+                            ->get();
+        $unfinished = Task::where(['user_id' => $user_id] )
+                            ->where('result', '==', 0)
+                            ->orderBy('position', 'asc')
+                            ->get();
+
         return response()->json([
             'message' => 'success',
-            'tasks' => $tasks
+            'finished' => $finished,
+            'unfinished' => $unfinished
         ]);
     }
 

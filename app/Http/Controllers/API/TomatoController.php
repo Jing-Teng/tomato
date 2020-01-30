@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Exam;
 use App\Tomato;
+use Carbon\Carbon;
 
 class TomatoController extends Controller
 {
@@ -23,9 +24,26 @@ class TomatoController extends Controller
         //$exam = Exam::where('user_id', $request->user()->id)->get();
         $tomatoes = Tomato::where(['exam_id' => $examId, 'user_id' => $user_id] )->get();
  
+        $startTime = Carbon::today();
+        $endTime = Carbon::tomorrow(); 
+
+        $finished = Tomato::where(['exam_id' => $examId, 'user_id' => $user_id] )
+                            ->whereBetween('created_at', array($startTime , $endTime))
+                            ->where('result', '>', 0)
+                            ->orderBy('position', 'asc')
+                            ->get();
+        $unfinished = Tomato::where(['exam_id' => $examId, 'user_id' => $user_id] )
+                            ->whereBetween('created_at', array($startTime , $endTime))
+                            ->where('result', '==', 0)
+                            ->orderBy('position', 'asc')
+                            ->get();
+
         return response()->json([
             'message' => 'success',          
-            'tomatoes' => $tomatoes
+            //'tomatoes' => $tomatoes
+            'finished' => $finished,
+            'unfinished' => $unfinished
+
         ]);
     }
 
@@ -37,7 +55,6 @@ class TomatoController extends Controller
      */
     public function store(Request $request, $examId)
     {
-
         $tomato = new Tomato($request->all());
         $tomato->exam_id = $examId;
         $tomato->user_id = Auth::id();
@@ -124,15 +141,15 @@ class TomatoController extends Controller
         }
     }
 
-    public function findTomatosByDate($examId,Request $request)
+    public function findTomatosByDate($examId, Request $request)
     {
-        $created_at = $request->created_at;
-        $startTime = $created_at . " 00:00:00";
-        $endTime = $created_at . " 23:59:59";
+        $date = $request->date;
+        $startTime = $date . " 00:00:00";
+        $endTime = $date . " 23:59:59";
         $user_id = Auth::user()->id; // 取得目前的已認證使用者     
         $user = User::find($user_id); //以 user_id 搜尋 user
         $exam = Exam::where('user_id', $request->user()->id)->get();
-        $tomatoes = Tomato::where('exam_id' , $examId)
+        $tomatoes = Tomato::where(['user_id' => $user_id] )
                     ->whereBetween('created_at', array($startTime , $endTime))
                     ->get();
         
@@ -149,13 +166,32 @@ class TomatoController extends Controller
         $user_id = Auth::user()->id; // 取得目前的已認證使用者     
         $user = User::find($user_id); //以 user_id 搜尋 user
         $exam = Exam::where('user_id', $request->user()->id)->get();
-        $tomatoes = Tomato::where('exam_id' , $examId)
+        $tomatoes = Tomato::where(['user_id' => $user_id] )
                     ->whereBetween('created_at', array($start_date , $end_date))
                     ->get();
         
         return response()->json([
             'message' => 'success',
             'tomatoes' => $tomatoes
+        ]);
+    }
+
+    public function resetTomatoesMinute($examId,Request $request)
+    {
+        $today = $request->today;
+        $minute = $request->minute;
+        $start_date = $today . " 00:00:00";
+        $end_date = $today . " 23:59:59";
+        $user_id = Auth::user()->id; // 取得目前的已認證使用者
+
+        $tomatoes = Tomato::where(['user_id' => $user_id] )
+                    ->where('result', '=', 0)
+                    ->whereBetween('created_at', array($start_date , $end_date))
+                    ->update(['minute' => $minute]);
+                    
+        return response()->json([
+            'message' => 'success',
+            'tomato_count' => $tomatoes
         ]);
     }
 }

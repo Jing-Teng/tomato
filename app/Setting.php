@@ -5,14 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 
-class Task extends Model
+class Setting extends Model
 {
-    protected $fillable = ['name','result','position'];
+    protected $fillable = ['path','length','short','long','battle','ring','vibration', 'minute', 'pcs'];
 
-    //和user的關聯
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
 }

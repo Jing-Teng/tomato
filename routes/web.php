@@ -19,9 +19,15 @@ Route::get('/about', function () {
     return view('about');
 });
 
+Route::get('/todolists', function () {
+    return view('todolists');
+});
 
+
+Route::get('/charts/{id}', 'ChartsController@show');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 Route::get('/charts', 'ChartsController@index');

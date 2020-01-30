@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -65,6 +64,8 @@ Route::group([
     ], function() {
         Route::apiResource('/exam', 'API\ExamController');
         Route::apiResource('/exam/{exam}/tomato', 'API\TomatoController');
+        Route::post('/exam/{exam}/tomato/reset_tomatoes_minute', 'API\TomatoController@resetTomatoesMinute');
+        //Route::get('/exam/{exam}/tomato', 'API\TomatoController@findTomatosByDate');
         //Route::get('/exam/{exam}/tomato', 'API\TomatoController@findTomatosByDate');
         //Route::get('/exam/{exam}/tomato', 'API\TomatoController@findTomatosBetweenDates');
         //Route::apiResource('/exam/{exam}/wakeup_alarm', 'API\WakeupAlarmController');
@@ -86,6 +87,17 @@ Route::group([
 
 //Route::get('/warning/{email}', 'WarningController@send');
 
-Route::post('warning', 'WarningController@send');
-Route::post('warning2', 'WarningController@send2');
+Route::post('warning', 'WarningController@send2');
+// Route::post('warning2', 'WarningController@send2');
 
+Route::group([
+    'prefix' => 'v1'
+    ], function () {
+    Route::group([
+      'middleware' => 'auth:api'
+    ], function() {
+        Route::get('/setting', 'API\SettingController@index');
+        Route::post('/setting', 'API\SettingController@store');
+        Route::patch('/setting/{id}', 'API\SettingController@update');
+    });
+});

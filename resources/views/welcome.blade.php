@@ -86,11 +86,8 @@
 
                 <div class="links">
                     <a href="about">About</a>
-                    <a href="android">Android</a>
-                    <a href="ios">iOS</a>
                     <a href="charts">Charts</a>
                     <a href="todolists">Todolists</a>
-                    <a href="tomatoes">Tomatoes</a>
                 </div>
             </div>
         </div>

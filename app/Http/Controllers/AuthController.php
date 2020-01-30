@@ -142,14 +142,15 @@ class AuthController extends Controller
                 "name" => "新增的蕃茄鍾會顯示在這", 
                 "result" => "0", 
                 "position" => "0",
-
-                "length" => "0",
-                "icon" => "default",
-                "color" => "default",
+                "length" => "25",
+                "minute" => "25",
+                "pcs" => "1",
+                "icon" => "icon_brainstorm",
+                "color" => "activity_1",
                 "exam_id" => "1",
                 "user_id" => $user_id,
-                "updated_at" => "2000-01-01 00:00:00",
-                "created_at" => "2000-01-01 00:00:00"
+                "created_at" => Carbon::now(),
+                "updated_at" => Carbon::now()
             ]    
         );
 
@@ -158,14 +159,15 @@ class AuthController extends Controller
                 "name" => "點擊後開始", 
                 "result" => "0", 
                 "position" => "1",
-
-                "length" => "0",
-                "icon" => "default",
-                "color" => "default",
+                "length" => "25",
+                "minute" => "25",
+                "pcs" => "1",
+                "icon" => "icon_school",
+                "color" => "activity_2",
                 "exam_id" => "1",
                 "user_id" => $user_id,
-                "updated_at" => "2000-01-01 00:00:00",
-                "created_at" => "2000-01-01 00:00:00"
+                "created_at" => Carbon::now(),
+                "updated_at" => Carbon::now()
             ]    
         );
 
@@ -174,14 +176,49 @@ class AuthController extends Controller
                 "name" => "按右邊的鉛筆可以重新編輯", 
                 "result" => "0", 
                 "position" => "2",
-
-                "length" => "0",
-                "icon" => "default",
-                "color" => "default",
+                "length" => "25",
+                "minute" => "25",
+                "pcs" => "1",
+                "icon" => "icon_exercise",
+                "color" => "activity_3",
                 "exam_id" => "1",
                 "user_id" => $user_id,
-                "updated_at" => "2000-01-01 00:00:00",
-                "created_at" => "2000-01-01 00:00:00"
+                "created_at" => Carbon::now(),
+                "updated_at" => Carbon::now()
+            ]    
+        );
+
+        $id = DB::table('tomatoes')->insertGetId(
+            [ 
+                "name" => "往左滑刪除", 
+                "result" => "0", 
+                "position" => "3",
+                "length" => "25",
+                "minute" => "25",
+                "pcs" => "1",
+                "icon" => "icon_science",
+                "color" => "activity_5",
+                "exam_id" => "1",
+                "user_id" => $user_id,
+                "created_at" => Carbon::now(),
+                "updated_at" => Carbon::now()
+            ]    
+        );
+
+        $id = DB::table('tomatoes')->insertGetId(
+            [ 
+                "name" => "做完的任務會移至此", 
+                "result" => "1", 
+                "position" => "4",
+                "length" => "25",
+                "minute" => "25",
+                "pcs" => "1",
+                "icon" => "icon_discussion",
+                "color" => "activity_4",
+                "exam_id" => "1",
+                "user_id" => $user_id,
+                "created_at" => Carbon::now(),
+                "updated_at" => Carbon::now()
             ]    
         );
 
@@ -190,5 +227,5 @@ class AuthController extends Controller
         ]);
 
     }
-
+    
 }

@@ -24,9 +24,20 @@ class TaskController extends Controller
         // return view('tasks.index', [
         //     'tasks' => $tasks,
         // ]);
+
+        $name = $tasks->name();
+        $result = $tasks->result();
+        // if($result==0){
+        //     $result = FALSE;
+        // }
+        // else{
+        //     $result = TRUE;
+        // }
+        $position = $tasks->position();
+
         return response()->json([
             'message' => 'success',
-            'tasks' => $tasks  
+            'tasks' => $result 
         ]);
     }
 

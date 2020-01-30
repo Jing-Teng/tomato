@@ -9,6 +9,7 @@ use Laravel\Passport\HasApiTokens; //passport
 use App\Exam;
 use App\Task;
 use App\NotifyAlarm;
+use App\Setting;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -58,6 +59,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(NotifyAlarm::class);
     }
 
+    public function setting()
+    {
+        return $this->hasOne(Setting::class);
+    }
 
     //自訂重設
     // public function sendPasswordResetNotification($token)

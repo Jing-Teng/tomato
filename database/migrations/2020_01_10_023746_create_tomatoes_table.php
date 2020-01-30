@@ -19,6 +19,8 @@ class CreateTomatoesTable extends Migration
             $table->unsignedInteger('exam_id')->index();
             //$table->string('cycle');
             $table->integer('length');
+            $table->integer('minute');
+            $table->integer('pcs');
             $table->integer('result');
             $table->string('name');
             $table->string('color');

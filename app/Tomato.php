@@ -9,7 +9,7 @@ use App\User;
 class Tomato extends Model
 {
     protected $fillable = [
-        'name', 'end_date', 'length', 'result','color','icon','position'
+        'name', 'end_date', 'length', 'result','color','icon','position', 'pcs', 'minute'
     ];
 
     public function exam()
