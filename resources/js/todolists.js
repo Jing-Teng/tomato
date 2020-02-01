@@ -21,6 +21,8 @@ window.Vue = require('vue');
 
 import ExampleComponent from './components/ExampleComponent.vue';
 Vue.component('ExampleComponent', ExampleComponent);
+Vue.config.debug = true;
+Vue.config.devtools = true;
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -43,3 +45,5 @@ const task = new Vue({
       }
     }
   })
+Vue.config.debug = true;
+Vue.config.devtools = true;

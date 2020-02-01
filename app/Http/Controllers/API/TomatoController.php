@@ -9,6 +9,7 @@ use App\User;
 use App\Exam;
 use App\Tomato;
 use Carbon\Carbon;
+use DB;
 
 class TomatoController extends Controller
 {
@@ -179,16 +180,21 @@ class TomatoController extends Controller
     public function resetTomatoesMinute($examId,Request $request)
     {
         $today = $request->today;
-        $minute = $request->minute;
+        $newMinute = $request->minute;
         $start_date = $today . " 00:00:00";
         $end_date = $today . " 23:59:59";
-        $user_id = Auth::user()->id; // 取得目前的已認證使用者
+        $user_id = Auth::user()->id; 
 
-        $tomatoes = Tomato::where(['user_id' => $user_id] )
+        $tomatoes = Tomato::where(['user_id' => $user_id])
                     ->where('result', '=', 0)
                     ->whereBetween('created_at', array($start_date , $end_date))
-                    ->update(['minute' => $minute]);
-                    
+                    ->update(['minute' => $newMinute]);
+
+        DB::table('tomatoes')
+                    ->update([
+                        "length" => DB::raw("`minute`*`pcs`")
+                    ]);
+
         return response()->json([
             'message' => 'success',
             'tomato_count' => $tomatoes

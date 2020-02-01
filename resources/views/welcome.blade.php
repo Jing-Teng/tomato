@@ -86,8 +86,8 @@
 
                 <div class="links">
                     <a href="about">About</a>
-                    <a href="charts">Charts</a>
-                    <a href="todolists">Todolists</a>
+                    <a href="charts">Chart</a>
+                    <a href="todolists">Todos</a>
                 </div>
             </div>
         </div>

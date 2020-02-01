@@ -82,7 +82,7 @@ class ChartsController extends Controller
     {
         $user_id = $id;
         $tomatoes = Tomato::where(['user_id' => $user_id] )->get();
-       
+
         //預計專注時間(未完成+完成)
         $data = Tomato::select(DB::raw("SUM(length) as length"))
                 ->where(['user_id' => $user_id] )

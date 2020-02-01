@@ -139,7 +139,7 @@ class AuthController extends Controller
 
         $id = DB::table('tomatoes')->insertGetId(
             [ 
-                "name" => "新增的蕃茄鍾會顯示在這", 
+                "name" => "新增的任務會顯示在這", 
                 "result" => "0", 
                 "position" => "0",
                 "length" => "25",
@@ -209,7 +209,7 @@ class AuthController extends Controller
             [ 
                 "name" => "做完的任務會移至此", 
                 "result" => "1", 
-                "position" => "4",
+                "position" => "0",
                 "length" => "25",
                 "minute" => "25",
                 "pcs" => "1",
