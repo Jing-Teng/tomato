@@ -17,8 +17,8 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
-        $user_id = Auth::user()->id; // 取得目前的已認證使用者     
-        $user = User::find($user_id); //以 user_id 搜尋 user
+        $user_id = Auth::user()->id;  
+        $user = User::find($user_id); 
         $tasks = Task::where('user_id', $request->user()->id)->get();
         
         $finished = Task::where(['user_id' => $user_id] )
@@ -50,7 +50,6 @@ class TaskController extends Controller
         $task->save();
         return response()->json([
             'message' => 'success',
-            //'id' => $task->user_id,
             'task' => $task
         ]);
     }
@@ -66,7 +65,6 @@ class TaskController extends Controller
         $task = Task::where('id', $id)->get();
         return response()->json([
             'message' => 'success',
-            //'name' => $name,
             'task' => $task
         ]);
     }
@@ -96,7 +94,7 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        $task = Task::where('id', $id)->first(); //get 改成 first
+        $task = Task::where('id', $id)->first(); 
         $task->delete();
         return response()->json([
             'message' => 'success',

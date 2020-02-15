@@ -12,12 +12,6 @@ use App\Exam;
 
 class ExamController extends Controller
 {
-    // 改到 Route
-    // public function __construct()
-    // {
-    //     $this->middleware('auth:api');
-    // }
-
     /**
      * Display a listing of the resource.
      *
@@ -25,13 +19,9 @@ class ExamController extends Controller
      */
     public function index(Request $request)
     {
-        $user_id = Auth::user()->id; // 取得目前的已認證使用者
-        //$user_id = auth()->user()->id;        
-        $user = User::find($user_id); //以 user_id 搜尋 user
         $exams = Exam::where('user_id', $request->user()->id)->get();
         return response()->json([
             'message' => 'success',
-            //'user' => $user,
             'exams' => $exams
         ]);
     }
@@ -44,11 +34,6 @@ class ExamController extends Controller
      */
     public function store(ExamRequest $request)
     {
-        // 改用 ExamRequest
-        // $this->validate($request, [ 
-        //     'name' => 'required|max:255',
-        // ]);
-
         $exam = new Exam($request->all());
         $exam->user_id = Auth::user()->id;
         $exam->save();
@@ -66,9 +51,6 @@ class ExamController extends Controller
      */
     public function show($id)
     {
-        //$user_id = Auth::user()->id; //取得關聯
-        
-        //$exam = Exam::where('id', $id)->get(); 回傳 collection 會掛掉
         $exam = Exam::where('id', $id)->first();
         if(Auth::id() == $exam->user_id){
             return response()->json([
@@ -81,7 +63,6 @@ class ExamController extends Controller
                 'message' => 'permission denied'
             ],403);
         }
-
     }
 
     /**
@@ -116,7 +97,6 @@ class ExamController extends Controller
      */
     public function destroy($id)
     {
-        //刪掉 exam 底下的關聯應該也要被刪掉
         $exam = Exam::where('id', $id)->first();
         if(Auth::id() == $exam->user_id){
             

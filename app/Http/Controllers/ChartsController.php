@@ -67,9 +67,6 @@ class ChartsController extends Controller
                         ->dataset('預計專注時間', $expected)
                         ->dataset('實際專注時間', $real)
                         ->labels( $date );
-    
-
-            //return view('charts',compact('chart'));
 
             return response()->json([
                 'tomatoes' => $data
@@ -102,7 +99,7 @@ class ChartsController extends Controller
         for($i=0; $i<count($data2); $i++){
             array_push($real , $data2[$i]['length'] );
         }
-        //日期 自己動手做QQ
+        //日期
         $data3 = Tomato::select("updated_at")
                 ->where(['user_id' => $user_id] )
                 ->get();
@@ -131,26 +128,9 @@ class ChartsController extends Controller
                     ->dataset('預計專注時間', $expected)
                     ->dataset('實際專注時間', $real)
                     // Setup what the values mean
-                    ->labels( $date )
-                    //->dateColumn('transction.created_at')
-                    //->groupByDay();
-                    ;
+                    ->labels( $date );
 
         return view('charts',compact('chart'));
-
-        // groupByDay()  找不到文件
-        // $chart = Charts::database($tomatoes, 'bar', 'highcharts')
-        //           ->title("我的累積專注時間")
-        //           ->elementLabel("預計分鐘")
-        //           //->labels($data->pluck('created_at'))  
-        //           ->dateColumn('transction.created_at')
-        //           ->groupByDay()                                      
-        //           ->values($expected)
-        //           ->responsive(true);
-        return response()->json([
-            'tomatoes' => $data
-        ]);
-
     }      
 
 

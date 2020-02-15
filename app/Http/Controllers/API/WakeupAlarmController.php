@@ -18,8 +18,8 @@ class WakeupAlarmController extends Controller
      */
     public function index(Request $request, $examId)
     {
-        $user_id = Auth::user()->id; // 取得目前的已認證使用者     
-        $user = User::find($user_id); //以 user_id 搜尋 user
+        $user_id = Auth::user()->id;     
+        $user = User::find($user_id); 
         $exam = Exam::where('user_id', $request->user()->id)->get();
         $wakeup_alarms = WakeupAlarm::where('exam_id', $examId)->get();
         
@@ -71,7 +71,6 @@ class WakeupAlarmController extends Controller
      */
     public function update(Request $request, $examId, $wakeupAlarmId)
     {
-        //$exam = Exam::where('id', $examId)->first();
         $wakeup_alarm = WakeupAlarm::where('id', $wakeupAlarmId)->first();
         $wakeup_alarm->update($request->all());
         return response()->json([

@@ -20,31 +20,10 @@ class AuthController extends Controller
      * @param  [string] password_confirmation
      * @return [string] message
      */
-    // public function signup(Request $request)
-    // {
-    //     $request->validate([
-    //         'name' => 'required|string',
-    //         'email' => 'required|string|email|unique:users',
-    //         'password' => 'required|string|confirmed'
-    //     ]);
-    //     $user = new User([
-    //         'name' => $request->name,
-    //         'email' => $request->email,
-    //         'password' => bcrypt($request->password)
-    //     ]);
-    //     $user->save();
-    //     return response()->json([
-    //         'message' => 'Successfully created user!'
-    //     ], 201);
-    // }
-
     public function register(Request $request): JsonResponse
     {
 
         $this->validate($request, [
-            // 'name' => ['required', 'string', 'max:255'],
-            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            // 'password' => ['required', 'string', 'min:8'],
             'email' => ['unique:users']
         ]);
 
@@ -52,12 +31,8 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $request->get('name'),
             'email' => $request->get('email'),
-            //'password' => Hash::make($request->get('password')),
             'password' => bcrypt($request->password)
         ]);
-
-        //$response = response()->json($validator);
-        //$response = response()->json($validated);
         $response = response()->json(
         [
             'message' => 'success',
@@ -79,11 +54,7 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        //Auth::login($user);
         $request->validate([
-            // 'email' => 'required|string|email',
-            // 'password' => 'required|string',
-            // 'remember_me' => 'boolean'
         ]);
         $credentials = request(['email', 'password']);
         if(!Auth::attempt($credentials))
@@ -115,7 +86,6 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        //Auth::logout();
         $request->user()->token()->revoke();
         return response()->json([
             'message' => 'success'
@@ -135,7 +105,7 @@ class AuthController extends Controller
     public function builder(Request $request)
     {
 
-        $user_id = Auth::user()->id; // 取得目前的已認證使用者
+        $user_id = Auth::user()->id;
 
         $id = DB::table('tomatoes')->insertGetId(
             [ 

@@ -20,9 +20,7 @@ class TomatoController extends Controller
      */
     public function index(Request $request, $examId)
     {
-        $user_id = Auth::user()->id; // 取得目前的已認證使用者     
-        //$user = User::find($user_id); //以 user_id 搜尋 user
-        //$exam = Exam::where('user_id', $request->user()->id)->get();
+        $user_id = Auth::user()->id; 
         $tomatoes = Tomato::where(['exam_id' => $examId, 'user_id' => $user_id] )->get();
  
         $startTime = Carbon::today();
@@ -41,7 +39,6 @@ class TomatoController extends Controller
 
         return response()->json([
             'message' => 'success',          
-            //'tomatoes' => $tomatoes
             'finished' => $finished,
             'unfinished' => $unfinished
 
@@ -74,7 +71,6 @@ class TomatoController extends Controller
      */
     public function show($examId, $tomatoId)
     {
-        //$exam = Exam::where('id', $examId)->first();
         $tomato = Tomato::where('id', $tomatoId)->first();
         if(Auth::id() == $tomato->user_id){
             

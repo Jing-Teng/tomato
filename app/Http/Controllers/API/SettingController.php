@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Setting;
 use App\User;
 
+
+// 讓使用者儲存 setting 
 class SettingController extends Controller
 {
 
