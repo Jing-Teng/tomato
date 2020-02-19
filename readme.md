@@ -11,7 +11,7 @@
 * 設計關聯式資料庫（使用 MySQL）
 * 以 Laravel Migration 操作資料庫，完成 CRUD API 設計與完整的輸入驗證、錯誤代碼回傳
 * 會員 API：使用 Passport (OAuth2) 完成安全的會員資料儲存，功能包含註冊、登入、忘記密碼
-* 撰寫 API 文件
+* 撰寫 [API 文件](https://hackmd.io/bH4w4_JTTxO6E3_chm9JDg?view#NFC-Tomato-Clock-API-%E6%96%87%E4%BB%B6)
 * 解決前端的各種資料問題
 * github 推廣
 
